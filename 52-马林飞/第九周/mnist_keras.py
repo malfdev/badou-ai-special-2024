@@ -19,13 +19,13 @@ print('test_labels= ', test_labels)
 # cv2.waitKey(0)
 
 digit = train_images[0]
-plt.imshow(digit, cmap=plt.cm.binary)
+plt.imshow(digit, cmap=plt.cm.binary)  # cmap 参数指定图像的颜色映射（colormap）。plt.cm.binary 表示使用二值颜色映射（黑白色调）
 plt.show()
 
 [3]
 network = models.Sequential()
-network.add(layers.Dense(units=512, activation='relu', input_shape=(28 * 28,)))  # 隐藏层
-network.add(layers.Dense(10, activation='softmax'))  # 输出层，分10类
+network.add(layers.Dense(units=512, activation='relu', input_shape=(28 * 28,)))  # 隐藏层 Dense用于分类
+network.add(layers.Dense(units=10, activation='softmax'))  # 输出层，分10类
 network.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
 [4]
@@ -41,7 +41,8 @@ test_labels = to_categorical(test_labels)
 print('after change:', test_labels[0])
 
 [5]
-history = network.fit(train_images, train_labels, epochs=5, batch_size=128, validation_data=(test_images, test_labels))
+history = network.fit(train_images, train_labels, epochs=5, batch_size=128, validation_data=(test_images, test_labels),
+                      verbose=2)
 
 [6]
 """
@@ -49,7 +50,7 @@ history = network.fit(train_images, train_labels, epochs=5, batch_size=128, vali
 verbose =1 打印训练进度条
 test_acc 准确率
 """
-test_loss, test_acc = network.evaluate(test_images, test_labels, verbose=1)
+test_loss, test_acc = network.evaluate(test_images, test_labels, verbose=2)
 print(test_loss, test_acc)
 
 [7]
