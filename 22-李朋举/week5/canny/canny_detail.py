@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # [-4:] -> 从后向前数4位  .png图片在这里的存储格式是0到1的浮点数，所以要扩展到255再计算（优化项）
     if pic_path[-4:] == '.png':
         img = img * 255  # 还是浮点数类型
-    img = img.mean(axis=-1)  # 取均值的方法进行灰度化
+    img = img.mean(axis=-1)  # 取均值的方法进行灰度化 axis=-1表示在最后一个轴上取均值，即对图像的每个像素点的RGB值取平均，从而将彩色图像转换为灰度图像。
 
     # 1、高斯平滑
     # sigma = 1.52  # 高斯平滑时的高斯核参数，标准差，可调
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     plt.axis('off')
 
     # 3、非极大值抑制
-    # 创建一个与梯度图像大小相同的全零矩阵，用于存储非极大值抑制后的结果。
+    # 创建一个与梯度图像大小（512，512）相同的全零矩阵，用于存储非极大值抑制后的结果。
     img_yizhi = np.zeros(img_tidu.shape)
     # 遍历图像中除去边缘(边框)的每个像素， 没有设置填充 ∴ range(1, dx - 1)
     for i in range(1, dx - 1):
@@ -329,8 +329,8 @@ if __name__ == '__main__':
             elif angle[i, j] < 0:  # -0.9339913749084802
                 # 根据梯度方向角度进行插值计算，以确定当前像素点在梯度方向上的期望值。因此，这里的 (temp[1, 0] - temp[0, 0]) * angle[i, j]
                 # 是基于线性插值法的原理，而不是在计算角度的正切值。
-                num_1 = (temp[1, 0] - temp[0, 0]) * angle[i, j] + temp[1, 0]
-                num_2 = (temp[1, 2] - temp[2, 2]) * angle[i, j] + temp[1, 2]
+                num_1 = (temp[1, 0] - temp[0, 0]) * angle[i, j] + temp[1, 0]  # 640.90753789971
+                num_2 = (temp[1, 2] - temp[2, 2]) * angle[i, j] + temp[1, 2]  # 5.966888901797233
                 if not (img_tidu[i, j] > num_1 and img_tidu[i, j] > num_2):
                     flag = False
             if flag:

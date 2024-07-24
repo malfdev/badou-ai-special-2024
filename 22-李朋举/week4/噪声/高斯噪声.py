@@ -3,6 +3,8 @@ import numpy as np
 import cv2
 from numpy import shape
 import random
+
+
 def GaussianNoise(src, means, sigma, percetage):
     NoiseImg = src
     NoiseNum = int(percetage * src.shape[0] * src.shape[1])  # 多少个点需要处理 percetage * H * W  percetage信噪比SNR
@@ -26,6 +28,9 @@ def GaussianNoise(src, means, sigma, percetage):
         elif NoiseImg[randX, randY] > 255:
             NoiseImg[randX, randY] = 255
     return NoiseImg
+
+
+# 0：灰度模式（Grayscale），图像以灰度形式加载，每个像素的值在 0 到 255 之间。
 img = cv2.imread('D:\cv_workspace\picture\lenna.png', 0)
 img1 = GaussianNoise(img, 2, 4, 0.8)  # 2->means 4->sigma 0.8 给多少像素加噪的百分比
 img = cv2.imread('D:\cv_workspace\picture\lenna.png')

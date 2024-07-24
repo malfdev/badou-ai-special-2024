@@ -9,7 +9,7 @@ img = cv2.imread("../0327/lenna.png")
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # 声明
-sift = cv2.xfeatures2d.SIFT_create()
+sift = cv2.SIFT_create()
 # 输入数据
 keypoints, descriptor = sift.detectAndCompute(gray, None)
 # 关键点     描述符
